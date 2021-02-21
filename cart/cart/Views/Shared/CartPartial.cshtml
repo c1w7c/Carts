@@ -1,0 +1,17 @@
+﻿@{
+    var currentCart = cart.Models.carts.operation.getAllCart();
+}
+<div class="dropdown">
+    <a href="#" class="text-light nav-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-shopping-cart"></i></a>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        @foreach (var item in currentCart)
+        {
+            <li>@String.Format("{0} X {1} 共 {2}",item.Name,item.Quantity,item.Amount)</li>
+        }
+
+        <li class="dropdown-divider"></li>
+        <li class="text-center">
+            <a href="#" class="btn btn-warning w-75">結帳去</a>
+        </li>
+    </ul>
+</div>

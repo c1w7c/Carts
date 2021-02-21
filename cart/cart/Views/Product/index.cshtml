@@ -1,0 +1,55 @@
+﻿@model List<cart.Models.Product>
+@{
+    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.ResultMessage != null)
+{
+    @Html.Label("info", (string)ViewBag.ResultMessage, htmlAttributes: new { @class = "text-success" });
+}
+@if (ViewBag.ResultError != null)
+{
+    @Html.Label("info", (string)ViewBag.ResultError, htmlAttributes: new { @class = "text-danger" });
+}
+
+
+
+<h2>商品列表</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <td>編輯/刪除</td>
+            <td>商品圖</td>
+            <td>編號</td>
+            <td>名稱</td>
+            <td>描述</td>
+            <td>售價</td>
+            <td>庫存</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("編輯", "Edit", "Product", new { Id = item.Id }, new { @class = "btn btn-outline-info" })
+
+                    @*刪除改用post方法*@
+                    @using (Html.BeginForm("Delete", "Product", FormMethod.Post, htmlAttributes:new { @class="d-inline"}))
+                    {
+                        @Html.Hidden("Id", item.Id);
+                        <button type="submit" class="btn btn-outline-danger">刪除</button>
+                        @*Html.ActionLink("刪除", "Delete", "Product", new { Id = item.Id }, new { @class = "btn btn-outline-danger" })*@
+                    }
+
+                </td>
+                <td><img src="@item.DefaultImageId" width="50px" height="50px"/></td>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Price</td>
+                <td>@item.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>

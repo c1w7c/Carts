@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 我的 ASP.NET 應用程式</title>
+    @Styles.Render("~/Content/css")
+
+    
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">-->
+    <!--<script src="~/Scripts/jquery-3.4.1.js"></script>-->
+</head>
+<body>
+    <!--舊版
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("應用程式名稱", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("首頁", "Index", "Home")</li>
+                    <li>@Html.ActionLink("關於", "About", "Home")</li>
+                    <li>@Html.ActionLink("連絡人", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    -->
+    <!---->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav w-100 justify-content-lg-between">
+                <div class="d-flex">
+                    @Html.ActionLink("首頁", "Index", "Home", "", new { @class = "nav-link" })
+                    @Html.ActionLink("關於", "About", "Home", "", new { @class = "nav-link" })
+                    @Html.ActionLink("聯絡人", "Contact", "Home", "", new { @class = "nav-link" })
+                    @Html.ActionLink("商品管理", "Index", "Product", "", new { @class = "nav-link" })
+                    @Html.ActionLink("新增商品", "Create", "Product", "", new { @class = "nav-link" })
+                    @Html.Partial("CartPartial")
+                </div>
+                @if (Session["login"] != null)
+                {
+                    <div class="d-none logout">
+                        <span class="h3 text-light">hi @Session["LoginUser"]</span>
+                        @Html.ActionLink("登出", "Logout", "Register", "", new { @class = "nav-link" })
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex login">
+                        @Html.ActionLink("註冊", "Index", "Register", "", new { @class = "nav-link" })
+                        @Html.ActionLink("登入", "Login", "Register", "", new { @class = "nav-link" })
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </nav>
+
+    <!---->
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @*RenderSection("changeToLogout", required: false)*@
+    <script>
+        $(document).ready(function () {
+            $("#toRegister").click(function () {
+                location.href = "/Register/Index"
+            })
+            console.log("Login.cshtml");
+            $("#login").click(function () {
+                $(".login").removeClass("d-flex").addClass("d-none");
+            })
+            $(".logout").removeClass("d-none").addClass("d-flex");
+        })
+    </script>
+    
+
+</body>
+</html>

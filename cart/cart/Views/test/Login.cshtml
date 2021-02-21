@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+@using (Html.BeginForm())
+{
+    <input id="Email" type="text" value="email@email.com" />
+    <input id="Password" type="text" value="password" />
+    <input id="SignIn" type="button" value="SignIn" />
+}
+
+@section Scripts {
+    <script>
+    $('#SignIn').click(function (e) {
+        e.preventDefault();
+        $('#SignIn').val('Please Wait');
+
+        Ajax_Login();
+    });
+
+    function Ajax_Login() {
+
+        var data = {};
+        data.username = $('#Email').val().trim();
+        data.password = $('#Password').val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Home/Login",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "json"
+        }).done(function (response) {
+            console.log(response);
+        }).fail(function (response) {
+            console.log('Error: ' + response);
+        });
+    }
+    </script>
+}
